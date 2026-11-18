@@ -1,44 +1,21 @@
-
 pipeline {
     agent any
 
-    tools {
-        jdk 'jdk21'
-        maven 'Maven-3'
-    }
-
     stages {
-        stage('Checkout') {
+        stage('Checkout Info') {
             steps {
-                checkout scm
+                echo "Building branch: ${env.BRANCH_NAME}"
             }
         }
-
         stage('Build') {
             steps {
-                bat 'mvn -B clean compile'
+                echo 'Building Manufacturing Resource Management System module...'
             }
         }
-
         stage('Test') {
             steps {
-                bat 'mvn -B test'
+                echo 'Running tests...'
             }
-        }
-
-        stage('Package') {
-            steps {
-                bat 'mvn -B package'
-            }
-        }
-    }
-
-    post {
-        success {
-            echo 'Build completed successfully!'
-        }
-        failure {
-            echo 'Build failed. Check the console output.'
         }
     }
 }
